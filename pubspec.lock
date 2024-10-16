@@ -60,9 +60,11 @@ packages:
   first_module:
     dependency: "direct main"
     description:
-      path: "../first_module"
-      relative: true
-    source: path
+      path: "."
+      ref: main
+      resolved-ref: c295625c90280c8ac52da0aa1a5e753b5ed80b67
+      url: "https://github.com/shindeyy/first_module.git"
+    source: git
     version: "1.0.0+1"
   flutter:
     dependency: "direct main"
@@ -149,9 +151,11 @@ packages:
   second_module:
     dependency: "direct main"
     description:
-      path: "../second_module"
-      relative: true
-    source: path
+      path: "."
+      ref: main
+      resolved-ref: "53fc5b1f21e24b19a158787d4abd268b36fa7ec8"
+      url: "https://github.com/shindeyy/second_module.git"
+    source: git
     version: "1.0.0+1"
   sky_engine:
     dependency: transitive
