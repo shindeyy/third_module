@@ -109,6 +109,13 @@ class _ThirdModuleScreenState extends State<ThirdModuleScreen> {
             },
             child: const Text('Finish'),
           ),
+          ElevatedButton(
+            onPressed: () {
+              const platform = MethodChannel('com.example/openBottomSheet');
+              platform.invokeMethod('open', {'message': "Open"});
+            },
+            child: const Text('Open popup'),
+          ),
           const SizedBox(height: 20),
           Text('RECEIVED DATA: ${receivedMap?['name']}'),
           const SizedBox(height: 20),
