@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:second_module/main.dart';
 import 'package:third_module/core/logger/app_logger.dart';
 
+import 'ui/fab_bottomsheet.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -114,7 +116,17 @@ class _ThirdModuleScreenState extends State<ThirdModuleScreen> {
               const platform = MethodChannel('com.example/openBottomSheet');
               platform.invokeMethod('open', {'message': "Open"});
             },
-            child: const Text('Open popup'),
+            child: const Text('Open Fittr BottomSheet'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: false,
+                builder: (context) => const BottomSheetContent(),
+              );
+            },
+            child: const Text('Open BottomSheet'),
           ),
           const SizedBox(height: 20),
           Text('RECEIVED DATA: ${receivedMap?['name']}'),
