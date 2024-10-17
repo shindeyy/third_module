@@ -2,6 +2,7 @@ import 'package:first_module/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:second_module/main.dart';
+import 'package:third_module/core/logger/app_logger.dart';
 
 void main() {
   runApp(const MyApp());
@@ -90,6 +91,7 @@ class _ThirdModuleScreenState extends State<ThirdModuleScreen> {
         children: [
           ElevatedButton(
             onPressed: () {
+              AppLogger.d("This is a debug message");
               Navigator.pushNamed(context, '/first_module', arguments: false); // Navigated from third module
             },
             child: const Text('Go to First Module'),
