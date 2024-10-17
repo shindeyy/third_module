@@ -190,7 +190,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "53fc5b1f21e24b19a158787d4abd268b36fa7ec8"
+      resolved-ref: f2fc8613c6b66e14f9ce545ebcb8d1477fa3ba10
       url: "https://github.com/shindeyy/second_module.git"
     source: git
     version: "1.0.0+1"
