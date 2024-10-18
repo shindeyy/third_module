@@ -1,3 +1,9 @@
+import 'dart:io';
+
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_storage_s3/amplify_storage_s3.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:first_module/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,9 +13,60 @@ import 'package:third_module/file_service.dart';
 
 import 'ui/fab_bottomsheet.dart';
 
-void main() {
+Future<void> main() async {
   runApp(const MyApp());
 }
+
+Future<void> configureAmplify() async {
+  final authPlugin = AmplifyAuthCognito();
+  final storagePlugin = AmplifyStorageS3();
+
+  try {
+    await Amplify.addPlugins([authPlugin, storagePlugin]);
+
+    await Amplify.configure('''
+    {
+      "auth": {
+        "plugins": {
+          "awsCognitoAuthPlugin": {
+            "CognitoUserPool": {
+              "Default": {
+                "PoolId": "*********",
+                "AppClientId": "***********",
+                "Region": "********"
+              }
+            },
+            "IdentityManager": {
+              "Default": {}
+            },
+            "CredentialsProvider": {
+              "CognitoIdentity": {
+                "Default": {
+                  "PoolId": "****************",
+                  "Region": "****************"
+                }
+              }
+            }
+          }
+        }
+      },
+      "storage": {
+        "plugins": {
+          "awsS3StoragePlugin": {
+            "bucket": "************",
+            "region": "***********"
+          }
+        }
+      }
+    }
+    ''');
+
+    AppLogger.d('Amplify configured successfully');
+  } catch (e) {
+    AppLogger.d('Error configuring Amplify: $e');
+  }
+}
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -147,6 +204,14 @@ class _ThirdModuleScreenState extends State<ThirdModuleScreen> {
             },
             child: const Text('Write File'),
           ),
+          ElevatedButton(
+            onPressed: () async {
+              WidgetsFlutterBinding.ensureInitialized();
+              await configureAmplify();
+              uploadVideo(); 
+            },
+            child: const Text('Upload Video'),
+          ),
           const SizedBox(height: 20),
           Text('RECEIVED DATA: ${receivedMap?['name']}'),
           const SizedBox(height: 20),
@@ -159,6 +224,49 @@ class _ThirdModuleScreenState extends State<ThirdModuleScreen> {
   }
 }
 
+Future<void> uploadVideo() async {
+  // Open file picker to select a video
+  FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.video);
 
+  if (result != null) {
+    File videoFile = File(result.files.single.path!);
 
+    try {
+      // Wrap the file in an AWSFile object
+      final AWSFile awsFile = AWSFile.fromPath(videoFile.path);
+
+      // Perform the upload using StorageUploadFileOperation
+      final StorageUploadFileOperation<StorageUploadFileRequest, StorageUploadFileResult<StorageItem>> uploadOperation =
+          Amplify.Storage.uploadFile(
+        localFile: awsFile,
+        path: StoragePath.fromString('uploads/${DateTime.now().millisecondsSinceEpoch}.mp4'),
+        onProgress: (progress) {
+          AppLogger.d('Progress: ${progress.fractionCompleted}');
+        },
+      );
+
+      // Await the result
+      final StorageUploadFileResult<StorageItem> uploadResult = await uploadOperation.result;
+
+      AppLogger.d('Video uploaded: ${uploadResult.uploadedItem.path}');
+      // You can now retrieve the uploaded video URL
+      final Object url = await getVideoUrl(uploadResult.uploadedItem!.path);
+      AppLogger.d('Video URL: $url');
+    } catch (e) {
+      AppLogger.d('Upload failed: $e');
+    }
+  }
+}
+
+Future<Object> getVideoUrl(String key) async {
+  try {
+    // Get the URL of the uploaded video
+    final StorageGetUrlOperation getUrlOperation = Amplify.Storage.getUrl(path: StoragePath.fromString(key));
+    final StorageGetUrlResult result = await getUrlOperation.result;
+    return result.url;
+  } catch (e) {
+    AppLogger.d('Error getting video URL: $e');
+    return '';
+  }
+}
 
