@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:second_module/main.dart';
 import 'package:third_module/core/logger/app_logger.dart';
+import 'package:third_module/file_service.dart';
 
 import 'ui/fab_bottomsheet.dart';
 
@@ -127,6 +128,24 @@ class _ThirdModuleScreenState extends State<ThirdModuleScreen> {
               );
             },
             child: const Text('Open BottomSheet'),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              FileService fileService = FileService();
+              String? content = await fileService.readFileFromAndroid('example.txt');
+              AppLogger.d("Content from Android: $content");
+            },
+            child: const Text('Read File'),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              const platform = MethodChannel('file_channel');
+              FileService fileService = FileService();
+              fileService.writeFileInFlutter();
+              platform.invokeMethod("writeFile", "flutter.txt");
+              AppLogger.d("Write from flutter");
+            },
+            child: const Text('Write File'),
           ),
           const SizedBox(height: 20),
           Text('RECEIVED DATA: ${receivedMap?['name']}'),
