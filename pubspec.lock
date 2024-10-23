@@ -21,26 +21,26 @@ packages:
     dependency: "direct main"
     description:
       name: amplify_auth_cognito
-      sha256: "661473364cbd13d6583209f63e7e9e6da967b5d973967f28d6ccb0a28831a880"
+      sha256: "4c377edc50b278d04b9d38b064f5807341887fceb6a4742fefa44cff4df35016"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.1"
+    version: "2.4.2"
   amplify_auth_cognito_dart:
     dependency: transitive
     description:
       name: amplify_auth_cognito_dart
-      sha256: "8530498dc7eb46756d303477b188313b80e03bf8b4ee14906ce6afae414e388a"
+      sha256: "3009ad92c9e3fc684b1ffcfb5cad60ebcb8917c8be5b2729f1a365b72876cf08"
       url: "https://pub.dev"
     source: hosted
-    version: "0.11.5"
+    version: "0.11.6"
   amplify_core:
     dependency: transitive
     description:
       name: amplify_core
-      sha256: "5186cd63f1d13ba7e1cc2670830ceeaa2bbcd27aa76c78b530638ea8c09a4dac"
+      sha256: e7732722fd4f8d149604ae58ecd7475bbc44a6d9736c830213e05e34a1196aba
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.1"
+    version: "2.4.2"
   amplify_db_common:
     dependency: transitive
     description:
@@ -109,10 +109,10 @@ packages:
     dependency: transitive
     description:
       name: aws_common
-      sha256: "310ff360f59eb8ca33841bfd01c8132be82910c0801f10cbd4d655a4809ff5e6"
+      sha256: "12d524244fcc1b1817b67be2e49a7d7c4252bace05b89fdf614b81d52e3c75e2"
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.3"
+    version: "0.7.4"
   aws_signature_v4:
     dependency: transitive
     description:
@@ -262,7 +262,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: e72028f64a218e446a27feee8c6199a089e3b692
+      resolved-ref: "4efe718589169e694a20cf1440d01373a0d0824c"
       url: "https://github.com/shindeyy/first_module.git"
     source: git
     version: "1.0.0+1"
@@ -445,10 +445,10 @@ packages:
     dependency: transitive
     description:
       name: mime
-      sha256: "801fd0b26f14a4a58ccb09d5892c3fbdeff209594300a542492cf13fba9d247a"
+      sha256: "41a20518f0cb1256669420fdba0cd90d21561e560ac240f26ef8322e45bb7ed6"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.6"
+    version: "2.0.0"
   nested:
     dependency: transitive
     description:
@@ -457,6 +457,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  network_module:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: main
+      resolved-ref: "3d55d7788f8fb56956c91e816a4614000bc14bea"
+      url: "https://github.com/shindeyy/network_module.git"
+    source: git
+    version: "1.0.0+1"
   oauth2:
     dependency: transitive
     description:
@@ -590,7 +599,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: f2fc8613c6b66e14f9ce545ebcb8d1477fa3ba10
+      resolved-ref: "67d62dc3dec3b4d479cc15f9dec2c6a682ebb9aa"
       url: "https://github.com/shindeyy/second_module.git"
     source: git
     version: "1.0.0+1"
@@ -747,10 +756,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: e5c39a90447e7c81cfec14b041cdbd0d0916bd9ebbc7fe02ab69568be703b9bd
+      sha256: e1d0cc62e65dc2561f5071fcbccecf58ff20c344f8f3dc7d4922df372a11df1f
       url: "https://pub.dev"
     source: hosted
-    version: "5.6.0"
+    version: "5.7.1"
   win32_registry:
     dependency: transitive
     description:

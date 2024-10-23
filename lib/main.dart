@@ -7,6 +7,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:first_module/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:network_module/networkscreen.dart';
 import 'package:second_module/main.dart';
 import 'package:third_module/core/logger/app_logger.dart';
 import 'package:third_module/file_service.dart';
@@ -196,6 +197,7 @@ class _ThirdModuleScreenState extends State<ThirdModuleScreen> {
           ),
           ElevatedButton(
             onPressed: () async {
+              
               const platform = MethodChannel('file_channel');
               FileService fileService = FileService();
               fileService.writeFileInFlutter();
@@ -212,7 +214,14 @@ class _ThirdModuleScreenState extends State<ThirdModuleScreen> {
             },
             child: const Text('Upload Video'),
           ),
+          ElevatedButton(
+            onPressed: () async {
+              
+            },
+            child: const Text('Network module'),
+          ),
           const SizedBox(height: 20),
+          const NetworkModuleScreen(),
           Text('RECEIVED DATA: ${receivedMap?['name']}'),
           const SizedBox(height: 20),
           receivedMap == null
@@ -270,3 +279,12 @@ Future<Object> getVideoUrl(String key) async {
   }
 }
 
+Future<void> checkFilePicker() async {
+  try {
+    const platform = MethodChannel('miguelruivo.flutter.plugins.filepicker');
+    final result = await platform.invokeMethod('video');
+    print(result);
+  } on PlatformException catch (e) {
+    print("Failed to invoke method: '${e.message}'.");
+  }
+}
